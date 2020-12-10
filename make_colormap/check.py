@@ -1,7 +1,9 @@
-import convert as c
+from color import convert as c
+from color import plot as p
 import util as u
 import numpy as np
 import make_RGB as m
+
 
 sw=9
 #0 : plot colormap depend on H and L
@@ -13,13 +15,12 @@ sw=9
 #6 : plot Intensity depend on H (L is 0.5, S is 1)
 #7 :
 #8 :
+#9 : confirm colorcode
 
 H=0
 dH=1
 dL=0.1
 dI=0.1
-
-
 
 if sw==0:#plot colormap depend on H and L
     RGBL=list()
@@ -27,7 +28,7 @@ if sw==0:#plot colormap depend on H and L
         RGBL.append(m.make_RGB_along_L(H, dL))
         H+=dH
 
-    u.show_colormap(RGBL)
+    p.show_colormap(RGBL,0)
 elif sw==1: #plot Intensity depend on H and L
     while H < 360:
         if H==0:
@@ -45,7 +46,7 @@ elif sw==2: #plot colormap depend on H and Intensity
         RGBH.append(m.make_RGB_along_I(RGBIL, dI))
         H+=dH
 
-    u.show_colormap(RGBH)
+    p.show_colormap(RGBH,0)
 elif sw==3:#plot Intensity depend on H and Intensity
     while H < 360:
         II = np.ndarray([0, 2])
@@ -86,7 +87,7 @@ elif sw==5:#plot colormap depend on H (L is 0.5, S is 1)
         RGBH.append(c.HLS_to_RGB(H, 0.5, 1))
         H+=dH
 
-    u.show_colormap2(RGBH)
+    p.show_colormap(RGBH,1)
 elif sw==6: #plot Intensity depend on H (L is 0.5, S is 1)
     HI=np.ndarray([0, 2])
     while H <=360:
@@ -104,13 +105,13 @@ elif sw==8:
     H = 0
 
     while H<360:
-        m.make_image(H)
+        p.make_image(H)
         H+=dH
 elif sw==9:
     C1=c.HLS_to_RGB(210, 0.5, 1)
-    m.make_image(210,0.5,1)
+    p.make_image(210,0.5,1)
     C2=c.HLS_to_RGB(300, 0.5, 1)
-    m.make_image(300,0.5,1)
+    p.make_image(300,0.5,1)
     I1=c.RGB_to_intensity(C1)
     I2=c.RGB_to_intensity(C2)
     white=c.RGB_to_intensity([1,1,1])
@@ -119,3 +120,7 @@ elif sw==9:
     print(RGBL)
     RGBL=m.make_RGB_from_HI(300, (I1+I2)/2)
     print(RGBL)
+elif sw==10:
+    RGB=c.HLS_to_RGB(10,0.5,1)
+    RGB=map(lambda x:x*255, RGB)
+    print(c.RGB_to_colorcode(RGB))

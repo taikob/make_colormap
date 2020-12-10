@@ -1,6 +1,5 @@
-import convert as c
+from color import convert as c
 import numpy as np
-import cv2
 
 def make_RGB_along_L(H, dL):
     RGBL=list()
@@ -68,25 +67,6 @@ def make_RGB_along_I(RGBIL, dI):
     RGB.append([1,1,1])
 
     return RGB
-
-def make_image(H,L=None,S=None):
-    if L is None or S is None:
-        L=0.5
-        S=1
-        title='H'+str(int(H))+'.jpg'
-    else:
-        title='H'+str(int(H))+'_L'+str(int(L))+'_S'+str(int(S))+'.jpg'
-
-    imsize=[120,160]
-    RGB=c.HLS_to_RGB(H, L, S)
-
-    im=np.ndarray([imsize[0],imsize[1],3])
-
-    for i in range(im.shape[0]):
-        for j in range(im.shape[1]):
-            im[i,j,:]=np.array([RGB[2],RGB[1],RGB[0]])*255
-
-    cv2.imwrite(title, im)
 
 def make_RGB_from_HI(H,I):
     RGBIL = make_RGBI_along_L(H, 0.0001)

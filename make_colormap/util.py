@@ -2,27 +2,6 @@ from matplotlib import pyplot as plt
 import csv
 import make_RGB as m
 
-def show_colormap(colorlist):
-    nh=len(colorlist) #num Hue
-    nl=len(colorlist[0]) #num Lightness
-    fig = plt.figure()
-
-    i=1
-    for cl in colorlist:
-        for c in cl:
-            plt.subplot(nh, nl, i, facecolor=c)
-            plt.tick_params(labelbottom=False,
-                           labelleft=False,
-                           labelright=False,
-                           labeltop=False,
-                           bottom=False,
-                           left=False,
-                           right=False,
-                           top=False)
-            i+=1
-
-    plt.show()
-
 def plot_LI(LI):
 
     fig = plt.figure()
@@ -70,26 +49,6 @@ def save_list(l,path):
     with open(path, "w") as f:
         writer = csv.writer(f, lineterminator="\n")
         writer.writerows(l)
-
-def show_colormap2(colorlist):
-    nl=len(colorlist) #num Hue
-    fig = plt.figure()
-    plt.subplots_adjust(wspace=0)
-
-    i=1
-    for cl in colorlist:
-        plt.subplot(1, nl, i, facecolor=cl)
-        plt.tick_params(labelbottom=False,
-                       labelleft=False,
-                       labelright=False,
-                       labeltop=False,
-                       bottom=False,
-                       left=False,
-                       right=False,
-                       top=False)
-        i+=1
-
-    plt.show()
 
 def make_RGB_for_R():
 
